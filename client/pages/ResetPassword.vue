@@ -1,7 +1,7 @@
 <template>
     <div class="container my-16 w-full mx-auto">
         <div class="max-w-sm mx-auto">
-            <h2 class="text-center text-gold">Reset Your Password</h2>
+            <h2 class="text-center text-orange-500">Reset Your Password</h2>
 
             <div class="w-full bg-white shadow-md mt-5 rounded-sm p-12">
                 <text-input

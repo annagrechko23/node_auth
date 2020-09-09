@@ -34,6 +34,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'public/index.html'))
 })
 
-app.listen(3002, () => {
+app.listen(4000, () => {
   console.log('server started succesfully.')
 })

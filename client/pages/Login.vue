@@ -1,7 +1,7 @@
 <template>
     <div class="container my-16 w-full mx-auto">
         <div class="max-w-sm mx-auto">
-            <h2 class="text-center text-gold">Login</h2>
+            <h2 class="text-center text-orange-500">Login</h2>
 
             <div class="w-full bg-white shadow-md mt-5 rounded-sm p-12">
                 <text-input
@@ -22,9 +22,9 @@
                     placeholder="Enter your password"
                 />
                 <div class="my-8 flex justify-center items-center">
-                    <router-link to="/auth/passwords/email" class="no-underline text-brown">Forgot Password ?</router-link>
+                    <router-link to="/auth/passwords/email" class="no-underline text-gray-600">Forgot Password ?</router-link>
                 </div>
-                <btn
+                <custom-button
                     label="Sign in"
                     :disabled="loading"
                     :loading="loading"

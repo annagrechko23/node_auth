@@ -1,5 +1,5 @@
 <template>
-    <h1 class="text-center my-16 text-brown">
+    <h1 class="text-center my-16 text-gray-500">
         Confirming email ...
     </h1>
 </template>
