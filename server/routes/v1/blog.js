@@ -1,16 +1,17 @@
 import { Router } from 'express'
 import authMiddleware from '@middleware/auth'
-let albums = require('../../data/albums');
+import postController from '@controllers/v1/post.controller'
+
 const blogRouter = new Router()
 
-blogRouter.post('/')
+blogRouter.get('/', authMiddleware, postController.allBlogPost)
 
-blogRouter.get('/', authMiddleware, async (req, res, next) => {
-    try {
+blogRouter.post('/', authMiddleware, postController.createPost)
 
-      res.json(albums)
-    } catch (err) {
-      next(err);
-    }
-  });
+blogRouter.put('/:id', authMiddleware, postController.editPost)
+
+blogRouter.get('/:id', authMiddleware, postController.getPost)
+
+blogRouter.delete('/:id', authMiddleware, postController.deletePost)
+
 export default blogRouter
