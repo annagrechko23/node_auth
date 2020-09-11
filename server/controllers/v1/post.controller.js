@@ -3,10 +3,33 @@ let mongoose = require('mongoose')
 
 const allBlogPost = async (req, res) => {
   try {
-    let posts = await Blog.find()
-    res.status(200).json(posts)
-  } catch (err) {
-    res.status(500).json(err)
+    console.log(req.query.search)
+    const input = req.query.search || ''; 
+    const limit = parseInt(req.query.limit) || 0; 
+    const page = parseInt(req.query.page) || 1
+    const query = {};
+    Blog.find({$or:[{title: new RegExp(input, "i")}, {content: new RegExp(input, "i")}]} )
+    .sort({ update_at: -1 })
+    .skip(page * limit) //Notice here
+    .limit(limit)
+    .exec((err, doc) => {
+      if (err) {
+        return res.json(err);
+      }
+      Blog.countDocuments(query).exec((count_error, count) => {
+        if (err) {
+          return res.json(count_error);
+        }
+        return res.json({
+          total: count,
+          page: page,
+          pageSize: doc.length,
+          results: doc
+        });
+      });
+    });
+  } catch(e){
+    return res.status(500).json(e)
   }
 }
 

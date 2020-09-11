@@ -22,8 +22,8 @@ let blogSchema = mongoose.Schema({
   },
   img: {
     data: Buffer,
-    contentType: String
-  }
+    contentType: String,
+  },
 })
 var Blog = mongoose.model('Blog', blogSchema)
 module.exports = Blog

@@ -42,7 +42,7 @@
 
 <script>
     import formMixin from '@client/mixins/form'
-    import { POST_REGISTER, SET_AUTH } from '@store/auth/actions'
+    import { mapActions } from 'vuex'
 
     export default {
         mixins: [formMixin],
