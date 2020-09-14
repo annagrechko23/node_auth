@@ -5,6 +5,7 @@ import Webpack from 'webpack'
 import v1Router from '@routes'
 import Mongoose from 'mongoose'
 import BodyParser from 'body-parser'
+import multer from 'multer'
 import WebpackConfig from '@/webpack.config'
 import WebpackHotMiddleware from 'webpack-hot-middleware'
 import WebpackDevMiddleware from 'webpack-dev-middleware'
@@ -30,6 +31,7 @@ app.use(v1Router)
 
 app.use(Express.static(path.resolve(__dirname, 'public')))
 
+app.use(multer({dest:__dirname+'/file/uploads/'}).any());
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'public/index.html'))
 })

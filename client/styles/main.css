@@ -22,4 +22,17 @@ body {
         transform:rotate(360deg);
     }
   }
-  
+  .pagination{
+    display: flex;
+    justify-content: center;
+  }
+  .pagination li a {
+      padding: 0 15px;
+  }
+  .pagination .active a{
+      color: #ed8936;
+  }
+  .pagination .disabled a{
+      pointer-events: none;
+      color: rgba(113, 128, 150, 0.5);
+  }

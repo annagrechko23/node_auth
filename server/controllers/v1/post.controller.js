@@ -1,9 +1,7 @@
 import Blog from '@models/Blog'
-let mongoose = require('mongoose')
 
 const allBlogPost = async (req, res) => {
   try {
-    console.log(req.query.search)
     const input = req.query.search || ''; 
     const limit = parseInt(req.query.limit) || 0; 
     const page = parseInt(req.query.page) || 1
@@ -35,12 +33,16 @@ const allBlogPost = async (req, res) => {
 
 const createPost = async (req, res) => {
   try {
+    console.log(req.body, res)
     const post = new Blog({
       title: req.body.title,
       content: req.body.content,
-      category: req.body.category,
+      // category: req.body.category,
       author: req.body.author,
+      images: req.body.images
     })
+//     newItem.img.data = fs.readFileSync(req.files.userPhoto.path)
+//  newItem.img.contentType = ‘image/png’;
     let newPost = await post.save()
     res.status(200).json({ data: newPost })
   } catch (err) {
@@ -61,7 +63,6 @@ const editPost = async (req, res) => {
   try {
     const id = req.params.id
     const result = await Blog.findOneAndUpdate(id, req.body, { new: true })
-    console.log(req.body, result)
     res.status(200).json(result)
   } catch (err) {
     res.status(500).json({ error: err })

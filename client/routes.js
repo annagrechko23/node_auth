@@ -6,6 +6,8 @@ import Register from '@pages/Register.vue'
 import EmailConfirm from '@pages/EmailConfirm.vue'
 import ResetPassword from '@pages/ResetPassword.vue'
 import ForgotPassword from '@pages/ForgotPassword.vue'
+import SinglePost from '@pages/SinglePost.vue'
+import CreatePost from '@pages/CreatePost.vue'
 
 export default new Router({
   mode: 'history',
@@ -19,8 +21,18 @@ export default new Router({
       component: Register,
     },
     {
+      path: '/new',
+      component: CreatePost,
+    },
+    {
       path: '/',
       component: Home,
+    },
+    {
+      name: 'post', 
+      path: '/post/:id',
+      component: SinglePost,
+      props: true,
     },
     {
       path: '/auth/passwords/email',

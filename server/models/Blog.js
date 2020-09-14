@@ -8,10 +8,10 @@ let blogSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  category: {
-    type: String,
-    required: true,
-  },
+  // category: {
+  //   type: String,
+  //   required: true,
+  // },
   author: {
     type: String,
     required: true,
@@ -20,10 +20,10 @@ let blogSchema = mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-  img: {
-    data: Buffer,
-    contentType: String,
-  },
+  images:{
+    type:Object,
+    required:true
+    }
 })
 var Blog = mongoose.model('Blog', blogSchema)
 module.exports = Blog
