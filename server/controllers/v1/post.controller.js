@@ -1,14 +1,15 @@
 import Blog from '@models/Blog'
+import path from 'path'
 
 const allBlogPost = async (req, res) => {
   try {
     const input = req.query.search || ''; 
-    const limit = parseInt(req.query.limit) || 0; 
+    const limit = parseInt(req.query.limit) || 10; 
     const page = parseInt(req.query.page) || 1
-    const query = {};
-    Blog.find({$or:[{title: new RegExp(input, "i")}, {content: new RegExp(input, "i")}]} )
+    const query = {$or:[{title: new RegExp(input, "i")}, {content: new RegExp(input, "i")}]} ;
+    Blog.find(query)
     .sort({ update_at: -1 })
-    .skip(page * limit) //Notice here
+    .skip((page-1) * limit) //Notice here
     .limit(limit)
     .exec((err, doc) => {
       if (err) {
@@ -33,16 +34,23 @@ const allBlogPost = async (req, res) => {
 
 const createPost = async (req, res) => {
   try {
-    console.log(req.body, res)
+    console.log(req)
+    let image = req.files.images;
+            console.log(image.name)
+    //Use the mv() method to place the file in upload directory (i.e. "uploads")
+    image.mv( './server/public/uploads/' + image.name);
+
     const post = new Blog({
       title: req.body.title,
       content: req.body.content,
       // category: req.body.category,
       author: req.body.author,
-      images: req.body.images
+      images: {
+        name: image.name,
+        mimetype: image.mimetype,
+        size: image.size
+        }
     })
-//     newItem.img.data = fs.readFileSync(req.files.userPhoto.path)
-//  newItem.img.contentType = ‘image/png’;
     let newPost = await post.save()
     res.status(200).json({ data: newPost })
   } catch (err) {

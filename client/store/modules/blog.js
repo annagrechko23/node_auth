@@ -10,10 +10,10 @@ export default {
     setPosts(state, data) {
       state.allPosts = data
     },
-    // setNewPost(state, data) {
-    //   console.log(state)
-    //   state.allPosts = state.allPosts.results.push(data)
-    // },
+    removePost(state, id) {
+      console.log(state.allPosts)
+      state.allPosts.results = state.allPosts.results.filter(post => post._id !== id)
+    },
     setSinglePost(state, data) {
       state.singlePost = data
     },
@@ -21,7 +21,7 @@ export default {
 
   actions: {
     async getAllPosts({ commit }, params) {
-      const { data } = await client.get(`/blog?limit=${params.limit}&skip=${params.skip}`)
+      const { data } = await client.get(`/blog?limit=${params.limit}&page=${params.page}`)
       commit('setPosts', data)
     },
     async getSinglePost({ commit }, id) {
@@ -29,12 +29,20 @@ export default {
       commit('setSinglePost', data)
     },
     async searchPost({ commit }, params) {
-      const { data } = await client.get(`/blog?search=${params}`)
+      const { data } = await client.get(`/blog?limit=${params.limit}&page=${params.page}&search=${params.search}`)
       commit('setPosts', data)
     },
-    async setPost({ commit }, params) {
-      console.log(params)
-      const {data} = await client.post('/blog', params)
+    async deletePost({ commit }, id) {
+      await client.delete(`/blog/${id}`)
+      commit('removePost', id)
+    },
+    async setPost({ commit }, formData) {
+      console.log(formData)
+      await client.post('/blog', formData,
+      {
+      headers: {
+          'Content-Type': 'multipart/form-data'
+      }})
       // commit('setNewPost', data)
     },
   },

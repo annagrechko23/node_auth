@@ -2,11 +2,11 @@ let mongoose = require('mongoose')
 let blogSchema = mongoose.Schema({
   title: {
     type: String,
-    required: true,
+    required: false,
   },
   content: {
     type: String,
-    required: true,
+    required: false,
   },
   // category: {
   //   type: String,
@@ -14,16 +14,16 @@ let blogSchema = mongoose.Schema({
   // },
   author: {
     type: String,
-    required: true,
+    required: false,
   },
   created: {
     type: Date,
     default: Date.now(),
   },
-  images:{
+  images: {
     type:Object,
-    required:true
-    }
+    required:false
+  }
 })
 var Blog = mongoose.model('Blog', blogSchema)
 module.exports = Blog

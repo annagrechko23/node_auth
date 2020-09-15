@@ -4,7 +4,7 @@
       <div
         class="w-1/2 px-2 mb-10 mx-auto box-border"
       >
-        <img class="w-full" :src="singlePost.image" alt="">
+        <img class="w-full" :src="'/uploads/' + singlePost.images.name" alt="">
         <div
           class="border-r  border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
         >

@@ -31,6 +31,10 @@ body {
   }
   .pagination .active a{
       color: #ed8936;
+      outline: none;
+  }
+  .pagination  a:focus{
+      outline: none;
   }
   .pagination .disabled a{
       pointer-events: none;

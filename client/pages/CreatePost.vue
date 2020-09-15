@@ -30,8 +30,20 @@
             v-validate="'required'"
             placeholder="img"
             @input="uploadFile"
-          /> -->
-          <input type="file" @change="uploadFile">
+          />-->
+
+          <form class="mt-4" action="/upload" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+              <input
+                type="file"
+                name="file"
+                id="input-files"
+                @change="uploadFile"
+                class="form-control-file border"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
           <custom-button label="Send" :disabled="loading" :loading="loading" @click="send" />
         </div>
       </div>
@@ -50,36 +62,42 @@ export default {
     post: {
       title: '',
       content: '',
-      images: null
     },
     model: {
       email: '',
       password: '',
     },
+    formData: null,
   }),
   computed: {
     ...mapState('blog', ['allPosts']),
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     ...mapActions('blog', ['setPost']),
     uploadFile(event) {
-      this.post.images = event.target.files[0]
-      console.log(event.target.files)
+      let files = event.target.files[0]
+      let name = event.target.name
+      let formData = new FormData()
+
+      formData.append('images', files)
+      this.$set(this, 'formData', formData)
     },
-   send() {
-     this.$validator.validate().then(async (isValid) => {
+    send() {
+      this.$validator.validate().then(async (isValid) => {
         if (!isValid) {
           return
         }
         this.toggleLoading()
         this.post.author = this.user.name
-        await this.setPost(this.post)
+        Object.keys(this.post).forEach((key) =>
+          this.formData.append(key, this.post[key])
+        )
+        await this.setPost(this.formData)
         this.toggleLoading()
         this.$router.push('/')
-     })
-   }
+      })
+    },
   },
 }
 </script>
