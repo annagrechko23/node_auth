@@ -3,7 +3,7 @@ import client from '@client/utils/axios'
 export default {
   namespaced: true,
   state: {
-    allPosts: [],
+    allPosts: {},
     singlePost: null,
   },
   mutations: {
@@ -11,12 +11,20 @@ export default {
       state.allPosts = data
     },
     removePost(state, id) {
-      console.log(state.allPosts)
+      
       state.allPosts.results = state.allPosts.results.filter(post => post._id !== id)
     },
     setSinglePost(state, data) {
       state.singlePost = data
     },
+    updatePost(state, data) {
+      console.log(state )
+      state.allPosts.results = state.allPosts.results.map(post => {
+        if(post._id === data._id){
+          return data;
+        } else return post
+      })
+    }
   },
 
   actions: {
@@ -37,13 +45,16 @@ export default {
       commit('removePost', id)
     },
     async setPost({ commit }, formData) {
-      console.log(formData)
       await client.post('/blog', formData,
       {
       headers: {
           'Content-Type': 'multipart/form-data'
       }})
       // commit('setNewPost', data)
+    },
+    async editPost({ commit }, params) {
+     const {data} = await client.put(`/blog/${params.id}`, params.formData)
+      // commit('updatePost', data)
     },
   },
 }

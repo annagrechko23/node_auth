@@ -21,9 +21,10 @@ let blogSchema = mongoose.Schema({
     default: Date.now(),
   },
   images: {
-    type:Object,
-    required:false
-  }
+    type: Object,
+    required: false,
+  },
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 })
 var Blog = mongoose.model('Blog', blogSchema)
 module.exports = Blog

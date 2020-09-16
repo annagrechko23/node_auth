@@ -1,7 +1,7 @@
 <template>
   <div class="my-32">
     <h1 class="text-center text-gray-500">Blog</h1>
-   <router-link :to="{ path: '/new',}" class=" w-full pl-20 box-border lg:flex text-center text-gray-500 text-lg">
+   <router-link v-if="auth" :to="{ path: '/new',}" class=" w-full pl-20 box-border lg:flex text-center text-gray-500 text-lg">
       &#43;
     </router-link>
     <text-input
@@ -30,8 +30,8 @@
             <div class="text-gray-900 font-bold text-xl mb-2" @click.prevent="removePost(post._id)">&times;</div>
           </div>
           <div class="mb-8">
-            <div class="text-gray-900 font-bold text-xl mb-2">{{post.title}}</div>
-            <p class="text-gray-700 text-base">{{post.content}}</p>
+            <div class="text-gray-900 font-bold text-xl mb-2 break-all ">{{post.title}}</div>
+            <p class="text-gray-700 text-base break-all ">{{post.content}}</p>
           </div>
           <div class="flex items-center">
             <div class="text-sm">

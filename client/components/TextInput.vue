@@ -20,11 +20,12 @@
 
 <script>
 export default {
-    
+    inheritAttrs: false,
     props: {
         placeholder: {
             type: String,
-            required: true
+            required: false,
+            default: 'text'
         },
         type: {
             type: String,

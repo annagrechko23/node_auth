@@ -29,7 +29,7 @@ export default new Router({
       component: Home,
     },
     {
-      name: 'post', 
+      name: 'post',
       path: '/post/:id',
       component: SinglePost,
       props: true,

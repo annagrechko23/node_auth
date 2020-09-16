@@ -32,18 +32,14 @@
             @input="uploadFile"
           />-->
 
-          <form class="mt-4" action="/upload" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-              <input
+          <input
                 type="file"
                 name="file"
                 id="input-files"
-                @change="uploadFile"
+                @change="uploading"
                 class="form-control-file border"
+                
               />
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
           <custom-button label="Send" :disabled="loading" :loading="loading" @click="send" />
         </div>
       </div>
@@ -55,9 +51,10 @@
 import { mapState, mapActions } from 'vuex'
 import debounce from 'lodash.debounce'
 import formMixin from '@client/mixins/form'
+import upload from '@client/mixins/upload'
 
 export default {
-  mixins: [formMixin],
+  mixins: [formMixin, upload],
   data: () => ({
     post: {
       title: '',
@@ -66,8 +63,7 @@ export default {
     model: {
       email: '',
       password: '',
-    },
-    formData: null,
+    }
   }),
   computed: {
     ...mapState('blog', ['allPosts']),
@@ -75,13 +71,8 @@ export default {
   mounted() {},
   methods: {
     ...mapActions('blog', ['setPost']),
-    uploadFile(event) {
-      let files = event.target.files[0]
-      let name = event.target.name
-      let formData = new FormData()
-
-      formData.append('images', files)
-      this.$set(this, 'formData', formData)
+    uploading(event) {
+      this.uploadFile(event)
     },
     send() {
       this.$validator.validate().then(async (isValid) => {
