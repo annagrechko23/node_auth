@@ -33,10 +33,13 @@
             <div class="text-gray-900 font-bold text-xl mb-2 break-all ">{{post.title}}</div>
             <p class="text-gray-700 text-base break-all ">{{post.content}}</p>
           </div>
-          <div class="flex items-center">
+          <div class="flex justify-between items-center">
             <div class="text-sm">
               <p class="text-gray-900 leading-none">{{post.author}}</p>
               <p class="text-gray-600">{{convertDate(post.created)}}</p>
+            </div>
+            <div class="flex items-center justify-between" v-if="post.comments.length > 0">
+              <img class="w-5 mr-2" src="/comment.svg" alt="comment"><span class="text-sm text-gray-900">{{post.comments.length }}</span>
             </div>
           </div>
         </div>

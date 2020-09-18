@@ -1,5 +1,5 @@
 import Blog from '@models/Blog'
-import path from 'path'
+import Comment from '@models/Comment'
 
 const allBlogPost = async (req, res) => {
   try {
@@ -98,11 +98,51 @@ const getPost = async (req, res) => {
     res.status(500).json(err)
   }
 }
+const createComment = async (req, res) => {
+  console.log(req.params)
 
+  try {
+  const comment = new Comment(req.body);
+    // comment.author = req.user._id;
+    const id = req.params.id
+    let post = await Blog.findById(id)
+    post.comments.unshift(comment)
+    let newPost = await post.save()
+    res.status(200).json(newPost)
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
+// CREATE REPLY
+const createCommentReplies = async (req, res) => {
+  const reply = new Comment(req.body);
+  reply.author = req.user._id
+  console.log(req.params)
+  Blog.findById(req.params._id)
+      .then(post => {
+          Promise.all([
+              reply.save(),
+              Comment.findById(req.params.commentId),
+          ])
+              .then(([reply, comment]) => {
+                  comment.comments.unshift(reply._id);
+
+                  return Promise.all([
+                      comment.save(),
+                  ]);
+              })
+             
+              .catch(console.error);
+          // SAVE THE CHANGE TO THE PARENT DOCUMENT
+          return post.save();
+      })
+}
 export default {
   createPost,
   allBlogPost,
   deletePost,
   editPost,
   getPost,
+  createComment,
+  createCommentReplies
 }

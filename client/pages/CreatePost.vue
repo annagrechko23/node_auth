@@ -3,7 +3,6 @@
     <div class="container my-16 w-full mx-auto">
       <div class="max-w-sm mx-auto">
         <h2 class="text-center text-orange-500">Create Post</h2>
-
         <div class="w-full bg-white shadow-md mt-5 rounded-sm p-12">
           <text-input
             name="title"
@@ -21,17 +20,6 @@
             :error="errors.first('content')"
             v-validate="'required'"
           />
-          <!-- <text-input
-            type="file"
-            name="image"
-            :value="post.images"
-            v-model="post.images"
-            :error="errors.first('image')"
-            v-validate="'required'"
-            placeholder="img"
-            @input="uploadFile"
-          />-->
-
           <input
                 type="file"
                 name="file"

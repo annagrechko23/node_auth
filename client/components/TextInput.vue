@@ -10,6 +10,7 @@
   @change="$emit('input', $event.target.value)"
   :placeholder="placeholder"
   @input="$emit('input', $event.target.value)"
+  :disabled="disabled"
   >  
     <span v-if="error" class="text-xs text-red-500">
         {{error}}
@@ -50,6 +51,10 @@ export default {
         error: {
             type: String,
             required: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     }
 }

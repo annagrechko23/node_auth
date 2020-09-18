@@ -8,10 +8,6 @@ let blogSchema = mongoose.Schema({
     type: String,
     required: false,
   },
-  // category: {
-  //   type: String,
-  //   required: true,
-  // },
   author: {
     type: String,
     required: false,
@@ -24,7 +20,10 @@ let blogSchema = mongoose.Schema({
     type: Object,
     required: false,
   },
-  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
+  comments: [{ type: Object, ref: 'Comment' }],
 })
+
 var Blog = mongoose.model('Blog', blogSchema)
+
+
 module.exports = Blog

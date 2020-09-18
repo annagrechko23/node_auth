@@ -1,6 +1,7 @@
 let mongoose = require('mongoose')
+
 let commentSchema = mongoose.Schema({
-    username: {
+  author: {
     type: String,
     required: false,
   },
@@ -11,7 +12,8 @@ let commentSchema = mongoose.Schema({
   created: {
     type: Date,
     default: Date.now(),
-  }
+  },
 })
+
 var Comment = mongoose.model('Comment', commentSchema)
 module.exports = Comment
